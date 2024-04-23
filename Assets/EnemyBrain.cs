@@ -9,6 +9,7 @@ public class EnemyBrain : MonoBehaviour
     [SerializeField] Health _health;
     [SerializeField] public NavMeshMover Mover;
     [SerializeField] public Attacker Attacker;
+    [SerializeField] PlayerConfig _config;
 
     public float RemainingDistance { get; private set; }
     public bool IsDead { get; private set; }
@@ -17,6 +18,8 @@ public class EnemyBrain : MonoBehaviour
     void Start()
     {
         _fsm = new(this);
+        _health.SetMaxHealth(_config.MaxHealth);
+        Attacker.SetWeapon(_config.Weapon);
     }
 
     public void Die() => _health.Die();

@@ -7,15 +7,20 @@ public class Attacker : MonoBehaviour
 {
     [SerializeField] Animator _animator;
     [SerializeField] LayerMask _attackMask;
-    [SerializeField] float _range;
     [SerializeField] Vector3 _weaponRange;
-    [SerializeField] float _damage;
-    [SerializeField] float _attackCooldown;
+    [SerializeField] Transform _hand;
+    public Weapon Weapon { get; private set; }
     Collider[] _hits = new Collider[5];
     float _attackTimer;
-    public float Range {get { return _range; }}
+    public float Range {get { return Weapon.Range; }}
 
-    void Start() => _attackTimer = _attackCooldown;
+    void Start() => _attackTimer = Weapon.AttackCooldown;
+
+    public void SetWeapon(Weapon weapon)
+    {
+        Weapon = weapon;
+        Instantiate(Weapon.Prefab, _hand);
+    }
 
     public void Attack()
     {
@@ -23,16 +28,16 @@ public class Attacker : MonoBehaviour
         {
             AnimateAttack();
             DamageEnemies();
-            _attackTimer = _attackCooldown;
+            _attackTimer = Weapon.AttackCooldown;
         }
     }
 
     private void DamageEnemies()
     {
-        var count = Physics.OverlapSphereNonAlloc(transform.position, _range, _hits, _attackMask); 
+        var count = Physics.OverlapSphereNonAlloc(transform.position, Weapon.Range, _hits, _attackMask); 
         for (int i = 0; i < count; i++)
         {
-            if (_hits[i].TryGetComponent<Health>(out var health)) health.TakeDamage(_damage);
+            if (_hits[i].TryGetComponent<Health>(out var health)) health.TakeDamage(Weapon.Damage);
         }
     }
 
