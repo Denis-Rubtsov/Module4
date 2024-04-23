@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float _maxHealth;
+    private float _maxHealth;
     [SerializeField] private Animator _animator;
     public float MaxHealth {get { return _maxHealth; }}
     public float CurrentHealth { get; private set; }
@@ -20,8 +20,11 @@ public class Health : MonoBehaviour
     {
         if (CurrentHealth >= _maxHealth) CurrentHealth -= damage;
         else CurrentHealth = 0;
+        _animator.SetTrigger("Damaged");
         if (CurrentHealth <= 0) IsDead = true;
     }
+
+    public void SetMaxHealth(float maxHealth) => _maxHealth = maxHealth;
 
     public void Die()
     {

@@ -8,12 +8,19 @@ public class Attacker : MonoBehaviour
     [SerializeField] Animator _animator;
     [SerializeField] LayerMask _attackMask;
     [SerializeField] Vector3 _weaponRange;
-    [field: SerializeField] public Weapon Weapon { get; private set; }
+    [SerializeField] Transform _hand;
+    public Weapon Weapon { get; private set; }
     Collider[] _hits = new Collider[5];
     float _attackTimer;
     public float Range {get { return Weapon.Range; }}
 
     void Start() => _attackTimer = Weapon.AttackCooldown;
+
+    public void SetWeapon(Weapon weapon)
+    {
+        Weapon = weapon;
+        Instantiate(Weapon.Prefab, _hand);
+    }
 
     public void Attack()
     {

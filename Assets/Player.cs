@@ -8,8 +8,18 @@ public class Player : MonoBehaviour
     [SerializeField] InputManager _input;
     [SerializeField] Attacker _attacker;
     [SerializeField] Health _health;
+    PlayerConfig _config;
+    [SerializeField] List<PlayerConfig> _configs;
     public bool IsDead { get; private set; }
     public Vector3 Position { get; private set; }
+
+    void Awake()
+    {
+        _config = _configs[StaticData.SelectedConfig];
+        _health.SetMaxHealth(_config.MaxHealth);
+        _motion.SetSpeed(_config.Speed);
+        _attacker.SetWeapon(_config.Weapon);
+    }
 
     void Start()
     {

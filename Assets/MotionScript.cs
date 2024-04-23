@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MotionScript : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    private float _speed;
     [SerializeField] private CharacterController _controller;
     [SerializeField] private Animator _animator;
     private Camera _camera;
@@ -26,6 +26,8 @@ public class MotionScript : MonoBehaviour
         }
         else _animator.SetFloat("Speed", 0);
     }
+
+    public void SetSpeed(float speed) => _speed = speed;
 
     void Start()
     {
