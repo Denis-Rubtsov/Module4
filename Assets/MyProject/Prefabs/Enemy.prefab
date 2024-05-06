@@ -6963,7 +6963,8 @@ MonoBehaviour:
   _health: {fileID: 7720085283146146188}
   Mover: {fileID: 5027886735969927369}
   Attacker: {fileID: 3940795009656673267}
-  _config: {fileID: 11400000, guid: 50ad075c99553494aa72b9493ae52c0e, type: 2}
+  _config: {fileID: 11400000, guid: 3b90a5a798c51b64493a4982493a85de, type: 2}
+  _loot: {fileID: 7183279388552434517, guid: 4fcc024a98d91234bae99ef7a31474fb, type: 3}
 --- !u!1 &7616852126215836311
 GameObject:
   m_ObjectHideFlags: 0

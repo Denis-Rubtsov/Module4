@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc659c7f7cc36054f8678baf565f1337, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: TheSameFail's sword
+  <Cost>k__BackingField: 171100
+  <Icon>k__BackingField: {fileID: 21300000, guid: c0ea4b6e528e7fe4aa6cdc94d38691a1,
+    type: 3}
+  <Prefab>k__BackingField: {fileID: 7173519867628398778, guid: 11ad67c8ee8096642a73327ec14ef8a7,
+    type: 3}
+  <Slot>k__BackingField: 2
   <AttackCooldown>k__BackingField: 1.19
   <Damage>k__BackingField: 35.5
   <Range>k__BackingField: 2
-  <Prefab>k__BackingField: {fileID: 7173519867628398778, guid: 11ad67c8ee8096642a73327ec14ef8a7,
-    type: 3}
