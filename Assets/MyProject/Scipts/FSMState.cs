@@ -25,6 +25,7 @@ public abstract class FSMState
     {
         if (!_enemy.IsDead) return;
         _fsm.SetState<FSMDie>();
+        _enemy.SpawnLoot();
     }
 
     public virtual void Enter() => Debug.Log($"Entering state {this.GetType()}");

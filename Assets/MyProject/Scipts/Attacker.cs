@@ -9,6 +9,8 @@ public class Attacker : MonoBehaviour
     [SerializeField] LayerMask _attackMask;
     [SerializeField] Vector3 _weaponRange;
     [SerializeField] Transform _hand;
+
+    GameObject _weaponObject;
     public Weapon Weapon { get; private set; }
     Collider[] _hits = new Collider[5];
     float _attackTimer;
@@ -18,8 +20,9 @@ public class Attacker : MonoBehaviour
 
     public void SetWeapon(Weapon weapon)
     {
+        if (_weaponObject != null) Destroy(_weaponObject);
         Weapon = weapon;
-        Instantiate(Weapon.Prefab, _hand);
+        _weaponObject = Instantiate(Weapon.Prefab, _hand);
     }
 
     public void Attack()

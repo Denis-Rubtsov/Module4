@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,6 +12,9 @@ public class Player : MonoBehaviour
     [SerializeField] Health _health;
     PlayerConfig _config;
     [SerializeField] List<PlayerConfig> _configs;
+    [SerializeField] LootPicker _picker;
+    public PlayerInventory Inventory { get; private set; }
+    public int Money { get; private set; } = 100;
     public bool IsDead { get; private set; }
     public Vector3 Position { get; private set; }
 
@@ -19,11 +24,35 @@ public class Player : MonoBehaviour
         _health.SetMaxHealth(_config.MaxHealth);
         _motion.SetSpeed(_config.Speed);
         _attacker.SetWeapon(_config.Weapon);
+        Inventory = new PlayerInventory();
+        Inventory.AddEquip(Slot.Weapon, _config.Weapon);
+        _picker.OnItemPicked += OnItemPicked;
+        Inventory.OnWeaponChanged += OnWeaponChanged;
+    }
+
+    private void OnWeaponChanged(Item item)
+    {
+        if (item is Weapon weapon) _attacker.SetWeapon(weapon);
     }
 
     void Start()
     {
         IsDead = _health.IsDead;
+    }
+
+    public void AddMoney(int newMoney)
+    {
+        Money += newMoney;
+    }
+
+    public void TakeMoney (int cost)
+    {
+        Money -= cost;
+    }
+
+    private void OnItemPicked(Item item)
+    {
+        Inventory.AddItem(item);
     }
 
     // Update is called once per frame

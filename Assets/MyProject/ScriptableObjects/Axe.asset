@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc659c7f7cc36054f8678baf565f1337, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Henry of Skalitz
+  <Cost>k__BackingField: 140309
+  <Icon>k__BackingField: {fileID: 21300000, guid: eab93444844589c40a72574411dd0120,
+    type: 3}
+  <Prefab>k__BackingField: {fileID: 2839238648554764255, guid: 20eaf3b4ff5fe9342b2c1b2167d067ae,
+    type: 3}
+  <Slot>k__BackingField: 2
   <AttackCooldown>k__BackingField: 1.5
   <Damage>k__BackingField: 37
   <Range>k__BackingField: 1.65
-  <Prefab>k__BackingField: {fileID: 2839238648554764255, guid: 20eaf3b4ff5fe9342b2c1b2167d067ae,
-    type: 3}
