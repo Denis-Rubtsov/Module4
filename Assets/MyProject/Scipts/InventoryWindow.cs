@@ -4,18 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryWindow : MonoBehaviour
+public class InventoryWindow : Window
 {
     [SerializeField] private Button _close;
     [SerializeField] private List<EquipmentCell> _equipment;
     [SerializeField] private List<Cell> _inventory;
 
-    private Player _player;
-
-    private void Start()
+    public override void Construct(Player player)
     {
+        base.Construct(player);
         _close.onClick.AddListener(CloseClicked);
-        _player = FindObjectOfType<Player>();
         SetupInventory(_player.Inventory.Inventory);
         SetupEquipment(_player.Inventory.Equipment);
         _player.Inventory.OnEquipmentChanged += SetupEquipment;

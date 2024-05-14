@@ -6938,7 +6938,7 @@ MonoBehaviour:
   _motion: {fileID: 1700997746198337525}
   _input: {fileID: 5146390620400937261}
   _attacker: {fileID: 7669644980114203709}
-  _health: {fileID: 3931845744263549820}
+  <Health>k__BackingField: {fileID: 3931845744263549820}
   _configs:
   - {fileID: 11400000, guid: dad8e7cdec9cd94458f448ef8ec5e843, type: 2}
   - {fileID: 11400000, guid: 50ad075c99553494aa72b9493ae52c0e, type: 2}

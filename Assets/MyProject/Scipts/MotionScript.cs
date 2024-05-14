@@ -10,7 +10,11 @@ public class MotionScript : MonoBehaviour
     [SerializeField] private Animator _animator;
     private Camera _camera;
 
-    private Vector3 _input;
+    public void Construct(Camera camera, float speed)
+    {
+        _camera = camera;
+        SetSpeed(speed);
+    }
 
     internal void Move(Vector3 motion)
     {
@@ -28,11 +32,6 @@ public class MotionScript : MonoBehaviour
     }
 
     public void SetSpeed(float speed) => _speed = speed;
-
-    void Start()
-    {
-        _camera = Camera.main;
-    }
 
     // Update is called once per frame
     void Update()

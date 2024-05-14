@@ -11,10 +11,13 @@ public class Health : MonoBehaviour
     public float CurrentHealth { get; private set; }
     public bool IsDead { get; private set; } = false;
     
-    void Start()
+    public void Construct(float maxHealth, float currentHealth)
     {
-        CurrentHealth = _maxHealth;
+        _maxHealth = maxHealth;
+        CurrentHealth = currentHealth;
     }
+
+    public void Construct(float maxHealth) => Construct(maxHealth, maxHealth);
 
     public void TakeDamage(float damage)
     {
@@ -26,6 +29,8 @@ public class Health : MonoBehaviour
 
     public void SetMaxHealth(float maxHealth) => _maxHealth = maxHealth;
 
+    public void IncreaseMaxHealth() => _maxHealth *= 1.5f;
+
     public void Die()
     {
         _animator.SetTrigger("Died");
@@ -35,5 +40,10 @@ public class Health : MonoBehaviour
     void Update()
     {
         
+    }
+
+    internal void Heal()
+    {
+        if(MaxHealth >= CurrentHealth * 1.5f) CurrentHealth *= 1.5f;
     }
 }
