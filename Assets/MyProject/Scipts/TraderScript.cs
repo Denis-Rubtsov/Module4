@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class TraderScript : MonoBehaviour
 {
-    [SerializeField] Player _player;
+    Player _player;
     [SerializeField] GameObject _tradeWindow;
     public PlayerInventory Inventory;
 
-    void Start()
+    public void Construct(Player player)
     {
+        _player = player;
         Inventory = new();
     }
 

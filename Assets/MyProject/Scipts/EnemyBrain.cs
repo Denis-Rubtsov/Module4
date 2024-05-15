@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyBrain : MonoBehaviour
 {
-    [SerializeField] public Player Player;
+    public Player Player;
     [SerializeField] Animator _animator;
     [SerializeField] Health _health;
     [SerializeField] public NavMeshMover Mover;
     [SerializeField] public Attacker Attacker;
-    [SerializeField] EnemyConfig _config;
+    EnemyConfig _config;
     [SerializeField] Loot _loot;
 
     Item _lootItem;
@@ -18,8 +18,10 @@ public class EnemyBrain : MonoBehaviour
     public bool IsDead { get; private set; }
     FSM _fsm;
 
-    void Start()
+    public void Construct(Player player, EnemyConfig config)
     {
+        Player = player;
+        _config = config;
         _fsm = new(this);
         _health.SetMaxHealth(_config.MaxHealth);
         Attacker.SetWeapon(_config.Weapon);
@@ -41,7 +43,7 @@ public class EnemyBrain : MonoBehaviour
         if (_lootItem == null) return;
 
         Loot loot = Instantiate(_loot, transform.position, Quaternion.identity);
-        loot.Init(_lootItem);
+        loot.Init(_lootItem, _config.Money, _config.Exp);
     }
 
     public void DestroyEnemy() => Destroy(this);

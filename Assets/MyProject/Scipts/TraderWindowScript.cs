@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TraderWindowScript : MonoBehaviour
+public class TraderWindowScript : Window
 {
-    [SerializeField] Player _player;
     [SerializeField] List<Cell> _inventory;
     [SerializeField] TraderScript _trader;
 
-    void Start()
+    public override void Construct(Player player)
     {
+        base.Construct(player);
         foreach (Cell cell in _inventory)
         {
             cell.OnClicked += CellOnClicked;
