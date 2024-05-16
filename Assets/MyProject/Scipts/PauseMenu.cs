@@ -24,7 +24,11 @@ public class PauseMenu : MonoBehaviour
 
     void SaveButtonClicked() => _saveService.SaveAll();
 
-    void MainMenuButtonClicked() => SceneManager.LoadScene("MainMenu");
+    void MainMenuButtonClicked()
+    {
+        StaticData.NextScene = "MainMenu";
+        SceneManager.LoadScene("LoadScreen");
+    }
 
     private void OnDisable()
     {

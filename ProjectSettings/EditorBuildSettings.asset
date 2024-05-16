@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MyProject/MainMenu.unity
+    path: Assets/MyProject/Scenes/MainMenu.unity
     guid: 6d1597159eb4652498d3c577dc9792a3
   - enabled: 1
-    path: Assets/MyProject/Scene.unity
+    path: Assets/MyProject/Scenes/StartLocation.unity
     guid: 623a1db569dcdbd409f326ac6ea299bd
+  - enabled: 1
+    path: Assets/MyProject/Scenes/LoadScreen.unity
+    guid: 99f6ab49288f9ae4cbb8abe4c6a7d50a
+  - enabled: 1
+    path: Assets/MyProject/Scenes/Dungeon.unity
+    guid: 735da0783e0697540ab64811d54571c1
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e689a87ef975ffa4398c55fda387a4c5,
       type: 2}
