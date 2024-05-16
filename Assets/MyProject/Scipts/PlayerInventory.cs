@@ -18,6 +18,12 @@ public class PlayerInventory
         Inventory = new List<Item>();
     }
 
+    public PlayerInventory(List<Item> inventory, Dictionary<Slot, Item> equipment)
+    {
+        Inventory = inventory;
+        Equipment = equipment;
+    }
+
     public void AddEquip(Slot slot, Item item)
     {
         Equipment.Add(slot, item);

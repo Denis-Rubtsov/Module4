@@ -15,7 +15,8 @@ public class MainMenu : MonoBehaviour
 
     void StartClicked()
     {
-        SceneManager.LoadScene("Scene");
+        SceneManager.LoadScene("LoadScreen");
+        StaticData.NextScene = "StartLocation";
     }
 
     void OnDisable()

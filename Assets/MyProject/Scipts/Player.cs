@@ -25,13 +25,14 @@ public class Player : MonoBehaviour, ISaveLoadEntity<PlayerSaveData>
         var data = Restore();
         _saveService = saveService;
         _config = _configs[StaticData.SelectedConfig];
-        if (Health == null) Debug.Log("Health почему-то null");
 
         if (data == null)
         {
             Health.Construct(_config.MaxHealth);
             Money = 100;
             Experience = new(0, 1);
+            Inventory = new();
+            Inventory.AddEquip(Slot.Weapon, _config.Weapon);
         }
         else
         {
@@ -40,13 +41,19 @@ public class Player : MonoBehaviour, ISaveLoadEntity<PlayerSaveData>
             if (data.Health.Max != 0 && data.Health.Current != 0) Health.Construct(data.Health.Max, data.Health.Current);
             else Health.Construct(_config.MaxHealth);
             Money = data.Money;
+            if (data.Inventory != null && data.Equipment != null) Inventory = new(data.Inventory, data.Equipment);
+            if (data.Inventory != null && data.Equipment == null) Inventory = new(data.Inventory, new Dictionary<Slot, Item>());
+            if (data.Inventory == null && data.Equipment != null) Inventory = new(new List<Item>(), data.Equipment);
+            else
+            {
+                Inventory = new();
+                Inventory.AddEquip(Slot.Weapon, _config.Weapon);
+            }
         }
 
         _motion.Construct(camera, _config.Speed);
-        _attacker.SetWeapon(_config.Weapon);
+        _attacker.SetWeapon((Weapon)Inventory.Equipment[Slot.Weapon]);
 
-        Inventory = new PlayerInventory();
-        Inventory.AddEquip(Slot.Weapon, _config.Weapon);
         _picker.OnItemPicked += OnItemPicked;
         Inventory.OnWeaponChanged += OnWeaponChanged;
         IsDead = Health.IsDead;
@@ -111,7 +118,9 @@ public class Player : MonoBehaviour, ISaveLoadEntity<PlayerSaveData>
             {
                 Current = Health.CurrentHealth,
                 Max = Health.MaxHealth
-            }
+            },
+            Inventory = this.Inventory.Inventory,
+            Equipment = this.Inventory.Equipment
         };
 
         string data = JsonUtility.ToJson(saveData);
@@ -139,6 +148,8 @@ public class PlayerSaveData : SaveData
     public int Level;
     public int Money;
     public PlayerHealthData Health;
+    public Dictionary<Slot, Item> Equipment;
+    public List<Item> Inventory;
 }
 
 [Serializable]
