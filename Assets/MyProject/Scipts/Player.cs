@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using UnityEngine;
 
 public class Player : MonoBehaviour, ISaveLoadEntity<PlayerSaveData>
@@ -25,14 +26,26 @@ public class Player : MonoBehaviour, ISaveLoadEntity<PlayerSaveData>
         var data = Restore();
         _saveService = saveService;
         _config = _configs[StaticData.SelectedConfig];
+        if (StaticData.Inventory != null) Debug.Log(StaticData.Inventory.Count);
+        if (StaticData.Inventory != null) Debug.Log(StaticData.Equipment.Count);
+
+        if(StaticData.Equipment != null && StaticData.Inventory != null) Inventory = new(StaticData.Inventory, StaticData.Equipment);
+        else if(StaticData.Equipment != null && StaticData.Inventory == null) Inventory = new(new(), StaticData.Equipment);
+        else if(StaticData.Equipment == null && StaticData.Inventory != null) Inventory = new(StaticData.Inventory, new());
+        else
+        {
+            Inventory = new();
+            Inventory.AddEquip(Slot.Weapon, _config.Weapon);
+        }
+
+        Debug.Log(Inventory.Inventory.Count);
+        Debug.Log(Inventory.Equipment.Count);
 
         if (data == null)
         {
             Health.Construct(_config.MaxHealth);
             Money = 100;
             Experience = new(0, 1);
-            Inventory = new();
-            Inventory.AddEquip(Slot.Weapon, _config.Weapon);
         }
         else
         {
@@ -41,14 +54,6 @@ public class Player : MonoBehaviour, ISaveLoadEntity<PlayerSaveData>
             if (data.Health.Max != 0 && data.Health.Current != 0) Health.Construct(data.Health.Max, data.Health.Current);
             else Health.Construct(_config.MaxHealth);
             Money = data.Money;
-            if (data.Inventory != null && data.Equipment != null) Inventory = new(data.Inventory, data.Equipment);
-            if (data.Inventory != null && data.Equipment == null) Inventory = new(data.Inventory, new Dictionary<Slot, Item>());
-            if (data.Inventory == null && data.Equipment != null) Inventory = new(new List<Item>(), data.Equipment);
-            else
-            {
-                Inventory = new();
-                Inventory.AddEquip(Slot.Weapon, _config.Weapon);
-            }
         }
 
         _motion.Construct(camera, _config.Speed);
@@ -118,9 +123,7 @@ public class Player : MonoBehaviour, ISaveLoadEntity<PlayerSaveData>
             {
                 Current = Health.CurrentHealth,
                 Max = Health.MaxHealth
-            },
-            Inventory = this.Inventory.Inventory,
-            Equipment = this.Inventory.Equipment
+            }
         };
 
         string data = JsonUtility.ToJson(saveData);
@@ -148,8 +151,6 @@ public class PlayerSaveData : SaveData
     public int Level;
     public int Money;
     public PlayerHealthData Health;
-    public Dictionary<Slot, Item> Equipment;
-    public List<Item> Inventory;
 }
 
 [Serializable]
